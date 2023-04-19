@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "6207648361",
+    "firebase_url": "https://fitness-gym-app-83211-default-rtdb.firebaseio.com",
+    "project_id": "fitness-gym-app-83211",
+    "storage_bucket": "fitness-gym-app-83211.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6207648361:android:fb2dabd0ed03c6cb6228f8",
+        "android_client_info": {
+          "package_name": "com.example.fitness_gymapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6207648361-dgu9ilcood1palgpn48i4e67tldtc9nu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fitness_gymapp",
+            "certificate_hash": "6c4631814cd6b6fdafaaa1f4b423b9985c5404ec"
+          }
+        },
+        {
+          "client_id": "6207648361-jsneap6fd1oi48vbtnkmo9mdv2u40cft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5HtTc5r_nzGFN8YSyUXkryu0NWnD6TV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6207648361-jsneap6fd1oi48vbtnkmo9mdv2u40cft.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
