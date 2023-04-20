@@ -4,7 +4,7 @@ import 'package:fitness_gymapp/pages/exxelog.dart';
 import 'package:fitness_gymapp/theme/colors.dart';
 
 import 'package:flutter/material.dart';
-import '../todo.dart';
+import '../meal.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                         onTap: (() => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TodoApp()))),
+                                builder: (context) => MealPlan()))),
                         child: Container(
                           width: 70,
                           height: 35,

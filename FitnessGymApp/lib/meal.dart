@@ -31,12 +31,12 @@ class Todo {
 }
 
 // Main app widget
-class TodoApp extends StatefulWidget {
+class MealPlan extends StatefulWidget {
   @override
-  _TodoAppState createState() => _TodoAppState();
+  _MealPlanState createState() => _MealPlanState();
 }
 
-class _TodoAppState extends State<TodoApp> {
+class _MealPlanState extends State<MealPlan> {
   List<Todo> _todos = [];
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -151,5 +151,5 @@ class _TodoAppState extends State<TodoApp> {
 }
 
 void main() {
-  runApp(TodoApp());
+  runApp(MealPlan());
 }
