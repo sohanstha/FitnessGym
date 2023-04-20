@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'router.dart' as router;
 
 void main() async {
+  // Initialize the firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: LoginPage(),

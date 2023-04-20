@@ -2,9 +2,11 @@
     package="com.example.fitness_gymapp">
    <application
         android:label="JIM"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:name="${applicationName}">
         <activity
             android:name=".MainActivity"
+            
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

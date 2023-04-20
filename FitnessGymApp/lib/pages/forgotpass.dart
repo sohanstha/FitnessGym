@@ -1,7 +1,32 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_gymapp/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class forgotpass extends StatelessWidget {
+class forgotpass extends StatefulWidget {
   const forgotpass({Key? key}) : super(key: key);
+
+  @override
+  State<forgotpass> createState() => _forgotpassState();
+}
+
+class _forgotpassState extends State<forgotpass> {
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController emails = TextEditingController();
+
+  // function for recovering password if user forget password by sending an email verification link
+  forgotpass() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: emails.text);
+      Fluttertoast.showToast(
+          msg: "Reset password link successfully sent to this email");
+    } on FirebaseAuthException catch (e) {
+      Fluttertoast.showToast(
+          msg: e.message.toString(), gravity: ToastGravity.CENTER);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +95,8 @@ class forgotpass extends StatelessWidget {
                     hintText: 'Enter your email Id',
                     labelText: 'Email',
                     labelStyle: TextStyle(
-                      color: Color(0xFF92A3FD), //<-- SEE HERE
+                      color: Color(0xFF92A3FD),
+                      //<-- SEE HERE
                     ),
                     prefixIcon: Icon(
                       Icons.person,
@@ -86,7 +112,23 @@ class forgotpass extends StatelessWidget {
               Container(
                   padding: const EdgeInsets.only(left: 70, right: 70),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Check whether the text field left blank or not
+
+                      // check the email validation and store boolean result
+                      bool isValid = EmailValidator.validate(emails.text);
+
+                      // Check whether the email valid or not
+                      // if valid then route to diffrent page
+                      if (isValid) {
+                        forgotpass();
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "Invalid email address entered");
+                      }
+                    },
                     child: const Text('Reset',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,

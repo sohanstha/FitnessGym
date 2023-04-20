@@ -1,11 +1,16 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:fitness_gymapp/controllers/auth.dart';
 import 'package:fitness_gymapp/pages/register.dart';
 import 'package:fitness_gymapp/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fitness_gymapp/pages/forgotpass.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icons.dart';
 
-import 'home_page.dart';
+import '../controllers/google_signin_service.dart';
+
+// import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,6 +20,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  // Variable declaration for remember me
+  bool isRememberMe = false;
+
+  // Variable declaration for password visible or invisible
+  late bool _passwordVisible;
+
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+
+  // Obejct of auth class
+  AuthServices au = AuthServices();
+
+  // GoogleService gs = GoogleService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Container(
                 height: (size.height - 60) * 0.5,
+                key: _formKey,
                 child: Column(
                   children: [
                     Text(
@@ -69,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             Flexible(
                               child: TextField(
+                                controller: au.logEmails,
                                 cursorColor: black.withOpacity(0.5),
                                 decoration: InputDecoration(
                                     hintText: "Email",
@@ -105,6 +128,12 @@ class _LoginPageState extends State<LoginPage> {
                                 decoration: InputDecoration(
                                     hintText: "Password",
                                     border: InputBorder.none),
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return "Required this field";
+                                //   }
+                                //   return null;
+                                // },
                               ),
                             ),
                             IconButton(
@@ -161,9 +190,25 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "/root_app", (route) => false);
+                          if (_formKey.currentState!.validate()) {
+                            bool isValid =
+                                EmailValidator.validate(au.logEmails.text);
+                            if (isValid) {
+                              au.loginUser(context);
+                              // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: "Invalid Email",
+                                  gravity: ToastGravity.CENTER,
+                                  textColor: Colors.redAccent,
+                                  fontSize: 20.0);
+                            }
+                          }
                         },
+                        // onTap: () {
+                        //   Navigator.pushNamedAndRemoveUntil(
+                        //       context, "/root_app", (route) => false);
+                        // },
                         child: Container(
                           height: 50,
                           width: double.infinity,
