@@ -1,6 +1,6 @@
 import 'package:fitness_gymapp/pages/countdown/resttimer.dart';
+import 'package:fitness_gymapp/pages/drawerscreen.dart';
 import 'package:fitness_gymapp/pages/home_page.dart';
-import 'package:fitness_gymapp/pages/profile.dart';
 import 'package:fitness_gymapp/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -25,7 +25,11 @@ class _RootAppState extends State<RootApp> {
   Widget getBody() {
     return IndexedStack(
       index: pageIndex,
-      children: [HomePage(), CountdownTimerDemo(), GymApp()],
+      children: [
+        HomePage(),
+        CountdownTimerDemo(),
+        DrawerScreen(),
+      ],
     );
   }
 

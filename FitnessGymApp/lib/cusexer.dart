@@ -1,155 +1,87 @@
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitness_gymapp/pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-// Model class for the to-do item
-class Exercise1 {
-  final int id;
-  final String title;
-  final String description;
+class ExerciseApp extends StatelessWidget {
+  ExerciseApp({Key? key}) : super(key: key);
 
-  Exercise1({required this.id, required this.title, required this.description});
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-    };
-  }
-
-  factory Exercise1.fromMap(Map<String, dynamic> map) {
-    return Exercise1(
-      id: map['id'],
-      title: map['title'],
-      description: map['description'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory Exercise1.fromJson(String source) =>
-      Exercise1.fromMap(json.decode(source));
-}
-
-// Main app widget
-class ExerciseApp extends StatefulWidget {
-  @override
-  _ExerciseAppState createState() => _ExerciseAppState();
-}
-
-class _ExerciseAppState extends State<ExerciseApp> {
-  List<Exercise1> _todos = [];
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  late SharedPreferences _prefs;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadTodos();
-  }
-
-  void _loadTodos() async {
-    _prefs = await SharedPreferences.getInstance();
-    List<String> todoList = _prefs.getStringList('todos1') ?? [];
-    setState(() {
-      _todos = todoList.map((todo) => Exercise1.fromJson(todo)).toList();
-    });
-  }
-
-  void _saveTodos() {
-    List<String> todoList = _todos.map((todo) => todo.toJson()).toList();
-    _prefs.setStringList('todos1', todoList);
-  }
-
-  void _addTodo() {
-    String title = _titleController.text.trim();
-    String description = _descriptionController.text.trim();
-    if (title.isNotEmpty && description.isNotEmpty) {
-      Exercise1 todo = Exercise1(
-        id: DateTime.now().microsecondsSinceEpoch,
-        title: title,
-        description: description,
-      );
-      setState(() {
-        _todos.add(todo);
-        _saveTodos();
-        _titleController.clear();
-        _descriptionController.clear();
-      });
-    }
-  }
-
-  void _deleteTodo(int id) {
-    setState(() {
-      _todos.removeWhere((todo) => todo.id == id);
-      _saveTodos();
-    });
-  }
+  final titleController = TextEditingController();
+  final desController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            appBar: AppBar(
-              leading: new IconButton(
-                icon: new Icon(Icons.arrow_back),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              backgroundColor: Color(0xFF92A3FD),
-              title: Text('Custom Exercise'),
-            ),
-            body: Column(
+    return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const HomePage()))),
+          title: Text("Create Your Custom Exercise"),
+          backgroundColor: Color(0xFF92A3FD),
+        ),
+        body: Container(
+          padding: EdgeInsets.all(40.0),
+          child: Center(
+            child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: TextField(
-                    controller: _titleController,
-                    decoration: InputDecoration(
-                      labelText: 'Title',
+                TextFormField(
+                  controller: titleController,
+                  decoration: InputDecoration(
+                      hintText: "Title",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF92A3FD)))),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                TextFormField(
+                  controller: desController,
+                  decoration: InputDecoration(
+                      hintText: "Enter Your workout details",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide())),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                SizedBox(
+                  height: 50,
+                  width: 400,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF92A3FD),
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: TextField(
-                    controller: _descriptionController,
-                    decoration: InputDecoration(
-                      labelText: 'Description',
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: _addTodo,
-                  child: Text('Save'),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Color(0xFF92A3FD)),
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: _todos.length,
-                    itemBuilder: (context, index) {
-                      final todo = _todos[index];
-                      return ListTile(
-                        title: Text(todo.title),
-                        subtitle: Text(todo.description),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => _deleteTodo(todo.id),
-                        ),
-                      );
+                    onPressed: () {
+                      Fluttertoast.showToast(
+                          msg: "Workout added Successfully", fontSize: 20);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()));
+                      CollectionReference collRef =
+                          FirebaseFirestore.instance.collection('Workout');
+                      collRef.add({
+                        'name': titleController.text,
+                        'details': desController.text,
+                      });
                     },
+                    child: const Text(
+                      'Save',
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
+                )
               ],
-            )));
+            ),
+          ),
+        ));
   }
-}
-
-void main() {
-  runApp(ExerciseApp());
 }

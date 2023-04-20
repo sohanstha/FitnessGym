@@ -2,11 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_gymapp/pages/home_page.dart';
 import 'package:fitness_gymapp/pages/login_page.dart';
+import 'package:fitness_gymapp/pages/root_app.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
-// import 'package:providerapp/view/homescreen.dart';
-// import 'package:fitness/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthServices extends ChangeNotifier {
@@ -67,31 +66,29 @@ class AuthServices extends ChangeNotifier {
           email: logEmails.text, password: logPass.text);
 
       // Check if authentication contain valid user email with password
-      if (user != null) {
-        print("Login Successfully");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+      print("Login Successfully");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => RootApp()));
 
-        // Save user login email and password with help of shared preferences for future work
-        SharedPreferences prefs = await SharedPreferences.getInstance();
+      // Save user login email and password with help of shared preferences for future work
+      SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        // Set respective user id after valid login credential
-        prefs.setString("userID", user.user!.uid);
-        print("user id saved");
-        print(prefs.getString("userID"));
-      }
+      // Set respective user id after valid login credential
+      prefs.setString("userID", user.user!.uid);
+      print("user id saved");
+      print(prefs.getString("userID"));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        print('No user found with the email.');
         Fluttertoast.showToast(
-            msg: "No user found for that email.",
+            msg: "No user found for the email.",
             gravity: ToastGravity.CENTER,
             textColor: Colors.redAccent,
             fontSize: 20.0);
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        print('Wrong password.');
         Fluttertoast.showToast(
-            msg: "Wrong password provided for that user.",
+            msg: "Wrong password.",
             gravity: ToastGravity.CENTER,
             textColor: Colors.redAccent,
             fontSize: 20.0);

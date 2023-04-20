@@ -108,7 +108,7 @@ class _KindaCodeDemoState extends State<KindaCodeDemo> {
               ),
             ),
             const SizedBox(height: 50),
-            // The 3 sliders to set minutes and seconds
+            // The sliders to set minutes and seconds
             Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,

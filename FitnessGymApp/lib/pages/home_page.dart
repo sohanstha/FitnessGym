@@ -1,5 +1,6 @@
 import 'package:fitness_gymapp/cusexer.dart';
 import 'package:fitness_gymapp/pages/bmi.dart';
+import 'package:fitness_gymapp/pages/exxelog.dart';
 import 'package:fitness_gymapp/theme/colors.dart';
 
 import 'package:flutter/material.dart';
@@ -35,18 +36,11 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Welcome Back",
+                        "Welcome!!",
                         style: TextStyle(fontSize: 14, color: black),
                       ),
                       SizedBox(
                         height: 5,
-                      ),
-                      Text(
-                        "Sohan Shrestha",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: black),
                       ),
                     ],
                   ),
@@ -154,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Meal Log",
+                        "Daily Meal Log",
                         style: TextStyle(
                             fontSize: 17,
                             color: black,
@@ -249,6 +243,51 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         width: 20,
                       ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: double.infinity,
+                height: 60,
+                decoration: BoxDecoration(
+                    color: secondary.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Custom Exercise Plan",
+                        style: TextStyle(
+                            fontSize: 17,
+                            color: black,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      InkWell(
+                        onTap: (() => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Fetchdata()))),
+                        child: Container(
+                          width: 70,
+                          height: 35,
+                          decoration: BoxDecoration(
+                              gradient:
+                                  LinearGradient(colors: [secondary, primary]),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Text(
+                              "Check",
+                              style: TextStyle(fontSize: 13, color: white),
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
