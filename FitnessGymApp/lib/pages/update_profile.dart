@@ -25,6 +25,9 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
     final postModel = Provider.of<UserDetail>(context, listen: false);
     postModel.getUserDetail();
     ud.nameController.text = postModel.getName;
+    ud.ageController.text = postModel.getAge;
+    ud.heightController.text = postModel.getHeight;
+    ud.weightController.text = postModel.getWeight;
     ud.mobileController.text = postModel.getPhone;
     ud.emailController.text = postModel.getEmail;
     ud.passController.text = postModel.getPassword;
@@ -82,7 +85,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                   child: Container(
                     alignment: Alignment.centerLeft,
                     child: TextFormField(
-                      // controller: ud.addressController,
+                      controller: ud.ageController,
                       style: TextStyle(
                           fontSize: 25, fontWeight: FontWeight.normal),
                       decoration: InputDecoration(
@@ -99,7 +102,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                   child: Container(
                     alignment: Alignment.centerLeft,
                     child: TextFormField(
-                      // controller: ud.addressController,
+                      controller: ud.heightController,
                       style: TextStyle(
                           fontSize: 25, fontWeight: FontWeight.normal),
                       decoration: InputDecoration(
@@ -116,7 +119,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                   child: Container(
                     alignment: Alignment.centerLeft,
                     child: TextFormField(
-                      // controller: ud.addressController,
+                      controller: ud.weightController,
                       style: TextStyle(
                           fontSize: 25, fontWeight: FontWeight.normal),
                       decoration: InputDecoration(

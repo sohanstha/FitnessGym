@@ -11,6 +11,9 @@ class UserDetail extends ChangeNotifier {
 
   // Text editing controller instances
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController heightController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
@@ -18,12 +21,18 @@ class UserDetail extends ChangeNotifier {
 
   // Declare variables
   String Name = "";
+  String Age = "";
+  String Height = "";
+  String Weight = "";
   String Email = "";
   String Phone = "";
   String Password = "";
 
   // Getter methods
   String get getName => Name;
+  String get getAge => Age;
+  String get getHeight => Height;
+  String get getWeight => Weight;
   String get getEmail => Email;
   String get getPhone => Phone;
   String get getPassword => Password;
@@ -40,6 +49,9 @@ class UserDetail extends ChangeNotifier {
       var data1 = snapshot.data() as Map;
 
       Name = data1['Name'];
+      Age = data1['Age'];
+      Height = data1['Height'];
+      Weight = data1['Weight'];
       Email = data1['Email'];
       Password = data1['Password'];
       Phone = data1['Mobile'];
@@ -55,6 +67,9 @@ class UserDetail extends ChangeNotifier {
     if (uid1 != null) {
       firestore.collection('users').doc(uid1).set({
         "Name": nameController.text,
+        "AGE": ageController.text,
+        "Height": heightController.text,
+        "Weight": weightController.text,
         "Mobile": mobileController.text,
         "Email": emailController.text,
         "Password": passController.text

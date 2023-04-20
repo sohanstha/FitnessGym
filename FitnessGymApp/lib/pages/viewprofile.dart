@@ -49,7 +49,7 @@ class _MyProfileState extends State<MyProfile> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 20),
                         child: CircleAvatar(
-                          radius: 100,
+                          radius: 70,
                           child: Text(
                             (value.getName.isNotEmpty)
                                 ? value.getName[0].toUpperCase()
@@ -130,6 +130,69 @@ class _MyProfileState extends State<MyProfile> {
                           ),
                         ),
                       ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //       left: 20, top: 12, bottom: 10),
+                      //   child: Container(
+                      //     child: Row(
+                      //       children: [
+                      //         const Text("Age:",
+                      //             style: TextStyle(
+                      //                 fontSize: 25,
+                      //                 fontWeight: FontWeight.bold)),
+                      //         Padding(
+                      //           padding: const EdgeInsets.only(left: 10),
+                      //           child: Text(value.getAge,
+                      //               style: TextStyle(
+                      //                   fontSize: 22,
+                      //                   fontWeight: FontWeight.bold)),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //       left: 20, top: 12, bottom: 10),
+                      //   child: Container(
+                      //     child: Row(
+                      //       children: [
+                      //         const Text("Height:",
+                      //             style: TextStyle(
+                      //                 fontSize: 25,
+                      //                 fontWeight: FontWeight.bold)),
+                      //         Padding(
+                      //           padding: const EdgeInsets.only(left: 10),
+                      //           child: Text(value.getHeight,
+                      //               style: TextStyle(
+                      //                   fontSize: 22,
+                      //                   fontWeight: FontWeight.bold)),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //       left: 20, top: 12, bottom: 10),
+                      //   child: Container(
+                      //     child: Row(
+                      //       children: [
+                      //         const Text("Weight:",
+                      //             style: TextStyle(
+                      //                 fontSize: 25,
+                      //                 fontWeight: FontWeight.bold)),
+                      //         Padding(
+                      //           padding: const EdgeInsets.only(left: 10),
+                      //           child: Text(value.getWeight,
+                      //               style: TextStyle(
+                      //                   fontSize: 22,
+                      //                   fontWeight: FontWeight.bold)),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
 
                       SizedBox(
                         height: 33,
